@@ -7,6 +7,8 @@ Just a side project, probably somebody I know could make use of😉
 
 ## Tech Stac
 React Framework - [Next JS](https://nextjs.org/)
+
 CSS library - [TailwindCSS](https://tailwindcss.com/)
+
 Deployment - [Vercel](https://vercel.com/)
 
