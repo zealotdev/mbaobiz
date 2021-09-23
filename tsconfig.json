@@ -18,7 +18,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "charts/DoughnutChart.js"
+    "charts/DoughnutChart.js",
+    "components/layout/sideBar.js"
   ],
   "exclude": ["node_modules"]
 }
