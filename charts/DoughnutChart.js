@@ -21,6 +21,23 @@ export default function DoughnutChart() {
     ],
   };
 
+  const customPlugin = {
+    beforeDraw(chart) {
+      const { width } = chart;
+      const { height } = chart;
+      const { ctx } = chart;
+      ctx.restore();
+      const fontSize = (height / 360).toFixed(2);
+      ctx.font = `${fontSize}em sans-serif`;
+      ctx.textBaseline = 'middle';
+      const text = 'Total 349';
+      const textX = Math.round((width - ctx.measureText(text).width) / 2);
+      const textY = height / 2.1;
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    },
+  };
+
   return (
     <div className="py-2 px-4 h-80">
       <Doughnut
@@ -45,26 +62,7 @@ export default function DoughnutChart() {
           maintainAspectRatio: false,
           responsive: true,
         }}
-        plugins={[
-          {
-            beforeDraw(chart) {
-              const { width } = chart;
-              const { height } = chart;
-              const { ctx } = chart;
-              ctx.restore();
-              const fontSize = (height / 360).toFixed(2);
-              ctx.font = `${fontSize}em sans-serif`;
-              ctx.textBaseline = 'middle';
-              const text = 'Total 349';
-              const textX = Math.round(
-                (width - ctx.measureText(text).width) / 2
-              );
-              const textY = height / 2.1;
-              ctx.fillText(text, textX, textY);
-              ctx.save();
-            },
-          },
-        ]}
+        plugins={[customPlugin]}
       />
     </div>
   );
