@@ -2,6 +2,23 @@ import Head from 'next/head';
 import { BarChart, DoughnutChart } from '../charts';
 import { ActivityTracker, QuickActions, TopSells } from '../components';
 
+const chartData = [340000, 700500, 970300, 97000, 253000, 500000, 0];
+const chartScale = {
+  x: {
+    display: true,
+    title: {
+      display: true,
+      text: 'Month',
+      color: '#6A7280',
+      font: {
+        size: 20,
+        lineHeight: 1.2,
+      },
+      padding: { top: 10, bottom: 0 },
+    },
+  },
+};
+
 export default function Home() {
   return (
     <div className="">
@@ -23,7 +40,11 @@ export default function Home() {
           </div>
           <div className="flex-grow space-y-4">
             <div className="bg-white rounded-lg h-80">
-              <BarChart />
+              <BarChart
+                chartData={chartData}
+                chartScale={chartScale}
+                chartLabel={'Sales'}
+              />
             </div>
             <div className="bg-white rounded-lg h-96">
               <QuickActions />

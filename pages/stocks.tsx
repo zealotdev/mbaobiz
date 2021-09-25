@@ -1,3 +1,9 @@
+import { Stats } from '../components';
+
 export default function Stocks() {
-  return <div>Stocks</div>;
+  return (
+    <div>
+      <Stats />
+    </div>
+  );
 }

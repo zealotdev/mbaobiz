@@ -19,7 +19,8 @@
     "**/*.ts",
     "**/*.tsx",
     "charts/DoughnutChart.js",
-    "components/layout/sideBar.js"
+    "components/layout/sideBar.js",
+    "charts/BarChart.js"
   ],
   "exclude": ["node_modules"]
 }
