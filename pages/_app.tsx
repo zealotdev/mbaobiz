@@ -1,11 +1,13 @@
 import 'tailwindcss/tailwind.css';
-import { Layout } from '../components';
+import 'antd/dist/antd.css';
+
+import { AppLayout } from '../components';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
+    <AppLayout>
       <Component {...pageProps} />
-    </Layout>
+    </AppLayout>
   );
 }
 

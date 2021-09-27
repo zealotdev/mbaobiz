@@ -1,12 +1,12 @@
 import { Bar } from 'react-chartjs-2';
 
-export default function BarChart() {
+export default function BarChart({ chartData, chartScale, chartLabel }) {
   const data = {
     labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
     datasets: [
       {
-        label: 'Sales',
-        data: [340000, 700500, 970300, 97000, 253000, 500000, 0],
+        label: chartLabel,
+        data: chartData,
         borderRadius: 8,
         backgroundColor: ['#5AD6B0'],
         cutout: '80%',
@@ -33,21 +33,7 @@ export default function BarChart() {
           },
           maintainAspectRatio: false,
           responsive: true,
-          scales: {
-            x: {
-              display: true,
-              title: {
-                display: true,
-                text: 'Month',
-                color: '#6A7280',
-                font: {
-                  size: 20,
-                  lineHeight: 1.2,
-                },
-                padding: { top: 10, bottom: 0 },
-              },
-            },
-          },
+          scales: chartScale,
         }}
       />
     </div>

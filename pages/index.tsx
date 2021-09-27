@@ -1,39 +1,87 @@
-import Head from 'next/head';
-import { BarChart, DoughnutChart } from '../charts';
-import { ActivityTracker, QuickActions, TopSells } from '../components';
+import { PlusOutlined } from '@ant-design/icons';
+import { Empty, Button, Modal, Form, Input } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 
-export default function Home() {
+export default function Index() {
+  const [modalOpened, setModalOpened] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setModalOpened(false);
+    });
+  };
   return (
-    <div className="">
-      <Head>
-        <title>MbaoBiz - Dashboard</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="px-4 pt-8 pb-8">
-        <h1 className="font-regular text-2xl mb-4">Dashboard</h1>
-        <div className="flex w-full space-x-4 h-96">
-          <div className="w-80 space-y-4">
-            <div className="bg-white rounded-lg h-80">
-              <DoughnutChart />
-            </div>
-            <div className="bg-white rounded-lg h-96 p-4">
-              <TopSells />
-            </div>
-          </div>
-          <div className="flex-grow space-y-4">
-            <div className="bg-white rounded-lg h-80">
-              <BarChart />
-            </div>
-            <div className="bg-white rounded-lg h-96">
-              <QuickActions />
-            </div>
-          </div>
-          <div className="w-80 bg-white rounded-lg" style={{ height: '45rem' }}>
-            <ActivityTracker />
-          </div>
-        </div>
-      </main>
+    <div className="w-full flex flex-col items-center mt-20">
+      <Empty
+        className="flex flex-col items-center w-52"
+        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        imageStyle={{
+          height: 60,
+        }}
+        description={
+          <span>
+            There is no <span className="text-blue-500">Business</span>{' '}
+            registered.
+          </span>
+        }
+      >
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => setModalOpened(!modalOpened)}
+        >
+          Register Now
+        </Button>
+      </Empty>
+      <Modal
+        title="Register a new Business"
+        centered
+        visible={modalOpened}
+        onCancel={() => setModalOpened(false)}
+        onOk={() => setModalOpened(false)}
+        footer={[
+          <Button
+            key="submit"
+            type="primary"
+            loading={loading}
+            onClick={() => setModalOpened(false)}
+          >
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            loading={loading}
+            onClick={() => handleSubmit()}
+          >
+            Submit
+          </Button>,
+        ]}
+      >
+        <Form form={form} layout="vertical">
+          <Form.Item
+            label="Business Name"
+            required
+            tooltip="This is a required field"
+          >
+            <Input placeholder="Mbao Business" size="large" />
+          </Form.Item>
+          <Form.Item
+            label="Description"
+            tooltip={{
+              title: 'This is optional field',
+              icon: <InfoCircleOutlined />,
+            }}
+          >
+            <Input placeholder="Biashara ya Mbao Kibena" size="large" />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 }

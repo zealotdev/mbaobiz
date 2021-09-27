@@ -1,75 +1,65 @@
+import { Layout, Menu } from 'antd';
+import {
+  ShopOutlined,
+  PieChartOutlined,
+  FundOutlined,
+  FileTextOutlined,
+  HomeOutlined,
+  ApartmentOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons';
+
+const { Sider } = Layout;
+const { SubMenu } = Menu;
+
 import Link from 'next/link';
-import router, { useRouter } from 'next/router';
-import React, { Children } from 'react';
-import PropTypes from 'prop-types';
-import { FaHome, FaUserFriends, FaPrint, FaThList } from 'react-icons/fa';
-
-const ActiveLink = ({ children, activeClassName, ...props }) => {
-  const { asPath } = useRouter();
-  const child = Children.only(children);
-  const childClassName = child.props.className || '';
-
-  // pages/index.js will be matched via props.href
-  // pages/about.js will be matched via props.href
-  // pages/[slug].js will be matched via props.as
-  const className =
-    asPath === props.href || asPath === props.as
-      ? `${childClassName} ${activeClassName}`.trim()
-      : childClassName;
-
-  return (
-    <Link {...props}>
-      {React.cloneElement(child, {
-        className: className || null,
-      })}
-    </Link>
-  );
-};
-
-ActiveLink.propTypes = {
-  activeClassName: PropTypes.string.isRequired,
-};
+import { useState } from 'react';
 
 export default function Sidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const onCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="bg-blue-500 px-4" style={{ height: '58rem' }}>
-      <div className="pt-20 space-y-4 w-full">
-        <ActiveLink
-          href="/"
-          activeClassName="flex space-x-2 items-center text-white font-medium text-sm bg-blue-600 rounded px-2 py-2"
+    <Sider collapsible collapsed={isCollapsed} onCollapse={() => onCollapse()}>
+      <div className="py-6 text-white">Logo</div>
+      <Menu defaultSelectedKeys={['1']} mode="inline" theme="dark">
+        <Menu.Item key="1" icon={<HomeOutlined />}>
+          <Link href="/">Home</Link>
+        </Menu.Item>
+        <SubMenu
+          key="sub1"
+          icon={<ApartmentOutlined />}
+          title="My Businesses"
+          onTitleClick={isCollapsed ? () => setIsCollapsed(false) : null}
+          onTitleMouseEnter={isCollapsed ? () => setIsCollapsed(false) : null}
         >
-          <a className="flex space-x-2 items-center text-white font-medium text-sm hover:text-blue-600 duration-500">
-            <FaHome /> <span>Dashboard</span>
-          </a>
-        </ActiveLink>
-        <ActiveLink
-          href="/stocks"
-          activeClassName="flex space-x-2 items-center text-white font-medium text-sm bg-blue-600 rounded px-2 py-2"
-        >
-          <a className="flex space-x-2 items-center text-white font-medium text-sm hover:text-blue-600 duration-500">
-            <FaThList />
-            <span>Stocks</span>
-          </a>
-        </ActiveLink>
-        <ActiveLink
-          href="/managers"
-          activeClassName="flex space-x-2 items-center text-white font-medium text-sm bg-blue-600 rounded px-2 py-2"
-        >
-          <a className="flex space-x-2 items-center text-white font-medium text-sm hover:text-blue-600 duration-500">
-            <FaUserFriends />
-            <span>Managers</span>
-          </a>
-        </ActiveLink>
-        <ActiveLink
-          href="/reports"
-          activeClassName="flex space-x-2 items-center text-white font-medium text-sm bg-blue-600 rounded px-2 py-2"
-        >
-          <a className="flex space-x-2 items-center text-white font-medium text-sm hover:text-blue-600 duration-500">
-            <FaPrint />
-            <span>Reports</span>
-          </a>
-        </ActiveLink>
-      </div>
-    </div>
+          <SubMenu key="sub1-2" icon={<ShopOutlined />} title={'Mbao Business'}>
+            <Menu.Item key={'2'} icon={<PieChartOutlined />}>
+              <Link href="/dashboard">
+                <a>Dashboard</a>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key={'3'} icon={<FundOutlined />}>
+              <Link href="/inventory">
+                <a>Inventory</a>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key={'4'} icon={<UsergroupAddOutlined />}>
+              <Link href="/users">
+                <a>Users</a>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key={'5'} icon={<FileTextOutlined />}>
+              <Link href="/reports">
+                <a>Reports</a>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
+        </SubMenu>
+      </Menu>
+    </Sider>
   );
 }
