@@ -21,7 +21,7 @@ let activities = [
   },
   {
     time: '10:10 am',
-    date: '10-08-2021',
+    date: '10-07-2021',
     name: 'restocked',
     size: '2*2',
     quantity: 230,
@@ -29,7 +29,7 @@ let activities = [
   },
   {
     time: '10:20 am',
-    date: '10-08-2021',
+    date: '10-05-2021',
     name: 'restocked',
     size: '2*4',
     quantity: 200,

@@ -1,6 +1,6 @@
 import { Stats } from '../components';
 
-export default function Stocks() {
+export default function Inventory() {
   return (
     <div>
       <Stats />
