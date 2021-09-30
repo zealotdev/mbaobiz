@@ -1,4 +1,4 @@
-import { Stats } from '../components';
+import { Stats } from '../../components';
 
 export default function Inventory() {
   return (

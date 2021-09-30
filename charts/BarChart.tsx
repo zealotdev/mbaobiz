@@ -15,7 +15,7 @@ export default function BarChart({ chartData, chartScale, chartLabel }) {
   };
 
   return (
-    <div className="py-2 px-4 h-80">
+    <div className="py-2 px-6 h-80">
       <Bar
         data={data}
         options={{

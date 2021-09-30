@@ -1,6 +1,12 @@
 import Head from 'next/head';
-import { BarChart, DoughnutChart } from '../charts';
-import { ActivityTracker, QuickActions, TopSells } from '../components';
+import { useRouter } from 'next/router';
+
+// Redux Imports to read the collapseState of the sider
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
+
+import { BarChart, DoughnutChart } from '../../charts';
+import { ActivityTracker, QuickActions, TopSells } from '../../components';
 
 const chartData = [340000, 700500, 970300, 97000, 253000, 500000, 0];
 const chartScale = {
@@ -20,6 +26,13 @@ const chartScale = {
 };
 
 export default function Dashboard() {
+  const siderCollapsed = useSelector(
+    (state: RootState) => state.collapse.value
+  );
+
+  const router = useRouter();
+  const { business_name } = router.query;
+
   return (
     <div className="">
       <Head>
@@ -29,16 +42,22 @@ export default function Dashboard() {
 
       <main className="">
         <h1 className="font-regular text-2xl mb-4">Dashboard</h1>
-        <div className="flex full space-x-4 ">
-          <div className="w-80 space-y-4">
-            <div className="bg-white rounded-lg h-80">
+        <div className="flex w-full space-x-4 ">
+          <div>
+            <div className="flex-grow bg-white rounded-lg h-80">
               <DoughnutChart />
             </div>
             <div className="bg-white rounded-lg  p-4">
               <TopSells />
             </div>
           </div>
-          <div className="flex-grow flex-shrink space-y-4">
+          <div
+            className={
+              siderCollapsed
+                ? 'flex-grow max-w-lg space-y-4'
+                : 'flex-grow max-w-md space-y-4'
+            }
+          >
             <div className="bg-white rounded-lg h-80">
               <BarChart
                 chartData={chartData}
@@ -50,7 +69,10 @@ export default function Dashboard() {
               <QuickActions />
             </div>
           </div>
-          <div className="w-80 bg-white rounded-lg" style={{ height: '45rem' }}>
+          <div
+            className="flex-grow bg-white rounded-lg"
+            style={{ height: '45rem' }}
+          >
             <ActivityTracker />
           </div>
         </div>
